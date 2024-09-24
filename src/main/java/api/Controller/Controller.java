@@ -25,7 +25,7 @@ public class Controller {
     @GetMapping("/listar-planetas")
     @Cacheable("cache")
     public List<PlanetasDTO> listarPlanetas() {
-        List<PlanetasDTO> dados = service.listarPlanetas();
+        List<PlanetasDTO> dados = new ArrayList<>();
         try {
             dados = service.listarPlanetas();
             Thread.sleep(1000);
@@ -48,7 +48,7 @@ public class Controller {
     }
     @GetMapping("/listar-por-nome")
     @Cacheable("cache")
-    public List<PlanetasDTO> listarPlanetas(@RequestParam(name = "nome") String nome) {
+    public List<PlanetasDTO> listarPlanetasPorNome(@RequestParam(name = "nome") String nome) {
         List<PlanetasDTO> dados = new ArrayList<>();
         try {
             dados = service.listarPlanetasPorNome(nome);
@@ -62,10 +62,12 @@ public class Controller {
     public RespostaPadraoDTO adicionarPlaneta(@RequestBody PlanetasDTO planeta) {
         return service.adicionarPlaneta(planeta);
     }
+
     @DeleteMapping("/remover-planeta")
     public RespostaPadraoDTO removerPlaneta(@RequestParam(name = "id") int id) {
         return service.removerPlaneta(id);
     }
+
     @GetMapping("/aparicao")
     @Cacheable
     public int aparicao(String nome) {
